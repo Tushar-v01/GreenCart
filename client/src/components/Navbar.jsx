@@ -48,6 +48,14 @@ const Navbar = () => {
         <NavLink to="/products">All Product</NavLink>
         <NavLink to="/">Contact</NavLink>
 
+        <span onClick={() => {
+          const isSeller = localStorage.getItem("isSeller") === "true";
+          navigate(isSeller ? "/seller" : "/seller");
+        }}
+        className="cursor-pointer text-gray-700 ">
+          Seller
+        </span>
+
         <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
           <input
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -55,7 +63,7 @@ const Navbar = () => {
             type="text"
             placeholder="Search products"
           />
-          <im src={assets.search_icon} alt="search" className="w-4 h-4" />
+          <img src={assets.search_icon} alt="search" className="w-4 h-4" />
         </div>
 
         <div
@@ -126,9 +134,8 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {open && (
         <div
-          className={`${
-            open ? "flex" : "hidden"
-          } absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex-col items-start gap-2 px-5 text-sm md:hidden`}
+          className={`${open ? "flex" : "hidden"
+            } absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex-col items-start gap-2 px-5 text-sm md:hidden`}
         >
           <NavLink to="/" onClick={() => setOpen(false)}>
             Home
