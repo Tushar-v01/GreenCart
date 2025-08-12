@@ -147,16 +147,16 @@ export const placeOrderStripe = async (req, res) => {
 export const stripeWebhooks = async (req, res) => {
   //Stripe Gateway Initialize
   const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
-  const sig = request.headers["stripe-signature"];
+  const sig = req.headers["stripe-signature"]; //changes
   let event;
   try {
     event = stripeInstance.webhooks.constructEvent(
-      request.body,
+      req.body, //changes
       sig,
       process.env.STRIPE_WEBHOOK_SECRET
     );
   } catch (error) {
-    response.status(400).send(`Webhook Error:${error.message}`);
+    res.status(400).send(`Webhook Error:${error.message}`); //changes
   }
 
   //Handle the event
@@ -192,7 +192,7 @@ export const stripeWebhooks = async (req, res) => {
       console.error(`Unhandled event type ${event.type}`);
       break;
   }
-  response.json({ received: true });
+  resjson({ received: true });  // changes
 };
 
 //Get Orders by User ID:/api/order/user
